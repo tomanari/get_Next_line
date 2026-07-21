@@ -20,7 +20,7 @@ char	*get_next_line (int fd)
 
 }
 
-char	*read_and_stock(int fd, char *static_buffer)
+char	*read_stock(int fd, char *static_buffer)
 {
 	char	*buffer;
 	int		count;
@@ -63,7 +63,33 @@ char	*extract_line(char *static_buffer)
 		line[i] == static_buffer[i];
 		i++;
 	}
-	line[i] = '/0';
+	line[i] = '\0';
 	return (line);
 }
 
+char	*update_storage(char *static_buffer)
+{
+	int	i;
+	int	j;
+	char	*new_storage;
+
+	i = 0;
+	while (static_buffer[i] && static_buffer[i] != '\n')
+		i++;
+	if (!static_buffer[i])
+		return(free(static_buffer), NULL);
+	new_storage = calloc(sizeof(char), ft_strlen(static_buffer) - i + 1);
+	if (!new_storage)
+		return (NULL);
+	i++;
+	j = 0;
+	while (static_buffer[i])
+	{
+		new_storage[j] = static_buffer[i];
+		i++;
+		j++;
+	}
+	new_storage = '\0';
+	free(static_buffer);
+	return (new_storage);
+}
