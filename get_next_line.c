@@ -6,7 +6,7 @@
 /*   By: mtomanar <mtomanar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 16:47:54 by mtomanar          #+#    #+#             */
-/*   Updated: 2026/07/24 22:01:09 by mtomanar         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:02:59 by mtomanar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*read_stock(int fd, char *static_buffer)
 {
 	char	*buffer;
 	int		count;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc (BUFFER_SIZE + 1);
@@ -46,21 +46,21 @@ char	*extract_line(char *static_buffer)
 
 	i = 0;
 	if (!static_buffer || static_buffer[0] == '\0')
-		return (NULL);
+		return (0);
 	while (static_buffer[i] && static_buffer[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * (i + 2));
+	line = malloc(ft_strlen(static_buffer) + 1);
 	if (!line)
 		return (NULL);
 	i = 0;
 	while (static_buffer[i] && static_buffer[i] != '\n')
 	{
-		line[i] == static_buffer[i];
+		line[i] = static_buffer[i];
 		i++;
 	}
 	if (static_buffer[i] == '\n')
 	{
-		line[i] == static_buffer[i];
+		line[i] = static_buffer[i];
 		i++;
 	}
 	line[i] = '\0';
@@ -78,7 +78,7 @@ char	*update_storage(char *static_buffer)
 		i++;
 	if (!static_buffer[i])
 		return (free(static_buffer), NULL);
-	new_storage = malloc (sizeof(char) * (ft_strlen(static_buffer) - i + 1));
+	new_storage = malloc (ft_strlen(static_buffer) + 1);
 	if (!new_storage)
 		return (NULL);
 	i++;
@@ -89,7 +89,7 @@ char	*update_storage(char *static_buffer)
 		i++;
 		j++;
 	}
-	new_storage = '\0';
+	new_storage[j] = '\0';
 	free(static_buffer);
 	return (new_storage);
 }
@@ -98,10 +98,10 @@ char	*get_next_line(int fd)
 {
 	static char	*storage;
 	char		*line;
-	
+
 	storage = read_stock(fd, storage);
 	if (!storage)
-		return (NULL);	
+		return (NULL);
 	line = extract_line(storage);
 	storage = update_storage(storage);
 	return (line);

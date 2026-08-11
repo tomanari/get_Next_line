@@ -6,7 +6,7 @@
 /*   By: mtomanar <mtomanar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 16:47:48 by mtomanar          #+#    #+#             */
-/*   Updated: 2026/07/24 22:01:23 by mtomanar         ###   ########.fr       */
+/*   Updated: 2026/07/28 19:42:08 by mtomanar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dest;
-	size_t	first;
-	size_t	second;
+	size_t	i;
+	size_t	j;
 
 	if (!s1)
 	{
@@ -51,14 +51,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	dest = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!dest)
 		return (NULL);
-	first = 0;
-	second = 0;
-	while (s1[first] != '\0')
-		dest[second++] = s1[first++];
-	first = 0;
-	while (s2[first] != '\0')
-		dest[second++] = s2[first++];
-	dest[second] = '\0';
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+		dest[j++] = s1[i++];
+	i = 0;
+	while (s2[i] != '\0')
+		dest[j++] = s2[i++];
+	dest[j] = '\0';
 	free(s1);
 	return (dest);
 }
